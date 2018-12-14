@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using AlterdataVotador.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
+using AlterdataVotador.Services;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -13,10 +14,11 @@ namespace AlterdataVotador.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize()]
     public class VotacaoController : Controller
     {
         private readonly ApplicationDbContext _db;
-        private const string SQL_BUSCAR_RANKING = "Select "; // Buscar todos os recursos e exibir a quantidade de votos de cada, sem repeti-los
+        
 
         public VotacaoController(ApplicationDbContext db)
         {
@@ -27,15 +29,17 @@ namespace AlterdataVotador.Controllers
         [HttpPost]
         public async Task<ActionResult<Votacao>> Salvar(Votacao votacao)
         {
-            if (ValidaVoto(votacao.IdRecurso, votacao.IdUsuario))
+            var res = await ValidaVoto(votacao);
+            if (res == "ok")
             {
+                votacao.DataHora = DateTime.Now;
                 _db.Votacoes.Add(votacao);
                 await _db.SaveChangesAsync();
                 return CreatedAtAction("BuscarUm", new { id = votacao.Id }, votacao);
             }
             else
             {
-                return BadRequest();
+                return BadRequest(new { message = res});
             }
            
         }
@@ -47,13 +51,6 @@ namespace AlterdataVotador.Controllers
             return _db.Votacoes.ToList();
         }
 
-        // GET: api/Votacao/Ranking
-        [HttpGet("/ranking")]
-        public ActionResult<List<Votacao>> RankingDescrescente()
-        {
-            return _db.Votacoes.FromSql(SQL_BUSCAR_RANKING).ToList();
-        }
-
         // GET: api/Votacao/5
         [HttpGet("{id}")]
         public ActionResult<Votacao> BuscarUm(long id)
@@ -61,7 +58,7 @@ namespace AlterdataVotador.Controllers
             var item = _db.Votacoes.Find(id);
             if (item == null)
             {
-                return NotFound();
+                return NotFound(new { message = "Voto não encontrado!" } );
             }
             else
             {
@@ -71,28 +68,38 @@ namespace AlterdataVotador.Controllers
 
         // PUT: api/Votacao/5
         [HttpPut("{id}")]
-        public async Task<ActionResult> Atualizar(long id, Votacao votacao)
+        private async Task<ActionResult> Atualizar(long id, Votacao votacao)
         {
             if (id != votacao.Id)
             {
-                return BadRequest();
+                return BadRequest(new { message = "ID de votacao não informado!" });
             }
             else
             {
-                _db.Entry(votacao).State = EntityState.Modified;
-                await _db.SaveChangesAsync();
-                return CreatedAtAction("BuscarUm", new { id = votacao.Id }, votacao);
+                var res = await ValidaVoto(votacao);
+                if (res == "ok")
+                {
+                    votacao.DataHora = DateTime.Now;
+                    _db.Entry(votacao).State = EntityState.Modified;
+                    await _db.SaveChangesAsync();
+                    return CreatedAtAction("BuscarUm", new { id = votacao.Id }, votacao);
+                }
+                else
+                {
+                    return BadRequest(new { message = res });
+                }
+                
             }
         }
 
         // Delete: api/Votacao/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Votacao>> ExcluirUm(long id)
+        private async Task<ActionResult<Votacao>> ExcluirUm(long id)
         {
             var item = await _db.Votacoes.FindAsync(id);
             if (item == null)
             {
-                return NotFound();
+                return NotFound(new { message = "Voto não encontrado!" });
             }
             else
             {
@@ -104,15 +111,23 @@ namespace AlterdataVotador.Controllers
 
         }
 
-        public Boolean ValidaVoto(long IdRecurso, long IdUsuario)
+        private async Task<string>ValidaVoto(Votacao voto)
         {
-            var item = _db.Votacoes.SingleOrDefaultAsync(v => v.IdRecurso == IdRecurso && v.IdUsuario == IdUsuario);
-            if(item == null)
+            var item = await _db.Votacoes.SingleOrDefaultAsync(v => v.IdRecurso == voto.IdRecurso && v.IdUsuario == voto.IdUsuario);
+            if (item == null)
             {
-                return true;
-            } else
+                if (voto.Comentario.Length > 0)
+                {
+                    return "ok";
+                }
+                else
+                {
+                    return "É necessário preencher o campo de comentário!";
+                }
+            }
+            else
             {
-                return false;
+                return "Não é possível votar mais de uma vez em um recurso";
             }
         }
     }

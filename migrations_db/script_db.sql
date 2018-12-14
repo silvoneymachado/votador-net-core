@@ -29,7 +29,7 @@ CREATE TABLE public.votacao (
 	idUsuario INTEGER REFERENCES Usuario(Id),
 	idRecurso INTEGER REFERENCES Recurso(Id),
 	dataHora TIMESTAMP,
-	domentario VARCHAR(255)
+	comentario character varying(255)
 );
 
 ALTER TABLE public.usuario

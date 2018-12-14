@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using AlterdataVotador.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
+using AlterdataVotador.Services;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -12,9 +14,11 @@ namespace AlterdataVotador.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize()]
     public class RecursoController : Controller
     {
         private readonly ApplicationDbContext _db;
+        private const string SQL_BUSCAR_RANKING = "select r.id, r.nome, r.descricao, r.habilitado, count(v.id) as qtd from votacao v join recurso r on v.idrecurso = r.id group by r.id order by qtd desc";
 
         public RecursoController(ApplicationDbContext db)
         {
@@ -25,9 +29,18 @@ namespace AlterdataVotador.Controllers
         [HttpPost]
         public async Task<ActionResult<Recurso>> Salvar(Recurso recurso)
         {
-            _db.Recursos.Add(recurso);
-            await _db.SaveChangesAsync();
-            return CreatedAtAction("BuscarUm", new { id = recurso.Id }, recurso);
+            var res = ValidaRecurso(recurso);
+            if(res == "ok")
+            {
+                _db.Recursos.Add(recurso);
+                await _db.SaveChangesAsync();
+                return CreatedAtAction("BuscarUm", new { id = recurso.Id }, recurso);
+            }
+            else
+            {
+                return BadRequest(new { message = res });
+            }
+
         }
 
         // GET: api/Recurso
@@ -44,12 +57,19 @@ namespace AlterdataVotador.Controllers
             var item = _db.Recursos.Find(id);
             if (item == null)
             {
-                return NotFound();
+                return NotFound(new { message = "ID de recurso não informado!" });
             }
             else
             {
                 return item;
             }
+        }
+
+        // GET: api/Recurso/Ranking
+        [HttpGet("ranking/")]
+        public ActionResult<List<Recurso>> RankingDescrescente()
+        {
+            return _db.Recursos.FromSql(SQL_BUSCAR_RANKING).ToList();
         }
 
         // PUT: api/Recurso/5
@@ -58,13 +78,22 @@ namespace AlterdataVotador.Controllers
         {
             if (id != recurso.Id)
             {
-                return BadRequest();
+                return BadRequest(new { message = "ID de recurso não informado!" });
             }
             else
             {
-                _db.Entry(recurso).State = EntityState.Modified;
-                await _db.SaveChangesAsync();
-                return CreatedAtAction("BuscarUm", new { id = recurso.Id }, recurso);
+                var res = ValidaRecurso(recurso);
+                if (res == "ok")
+                {
+                    _db.Entry(recurso).State = EntityState.Modified;
+                    await _db.SaveChangesAsync();
+                    return CreatedAtAction("BuscarUm", new { id = recurso.Id }, recurso);
+                }
+                else
+                {
+                    return BadRequest(new { message = res });
+                }
+
             }
         }
 
@@ -75,7 +104,7 @@ namespace AlterdataVotador.Controllers
             var item = await _db.Recursos.FindAsync(id);
             if (item == null)
             {
-                return NotFound();
+                return NotFound(new { message = "Recurso não encontrado"});
             }
             else
             {
@@ -85,6 +114,20 @@ namespace AlterdataVotador.Controllers
                 return item;
             }
 
+        }
+
+
+        private string ValidaRecurso(Recurso recurso)
+        {
+
+            if (recurso.Descricao.Length <= 0 || recurso.Nome.Length <= 0)
+            {
+                return "É necessário preencher todos os campos!";
+            }
+            else
+            {
+                return "ok";
+            }
         }
     }
 }
