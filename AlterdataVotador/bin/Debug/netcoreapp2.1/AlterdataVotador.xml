@@ -1,0 +1,188 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AlterdataVotador</name>
+    </assembly>
+    <members>
+        <member name="M:AlterdataVotador.Controllers.RecursoController.Salvar(AlterdataVotador.Models.Recurso)">
+            <summary>
+            Insere um novo recurso no banco de dados
+            </summary>
+            <param name="recurso"></param>
+            <returns>O recurso informado com id</returns>
+            <response code="200">O recurso informado com id</response>
+            <response code="400">Caso algum campo esteja vazio</response> 
+            <response code="401">Caso não possua token de acesso</response> 
+        </member>
+        <member name="M:AlterdataVotador.Controllers.RecursoController.BuscarTodos">
+            <summary>
+            Obtém uma lista de todos os recursos
+            </summary>
+            <returns>Uma lista com todos os recursos cadastrados</returns>
+            <response cod="200">Uma lista com todos os recursos cadastrados</response>
+            <response code="400">Caso algum campo esteja vazio</response> 
+            <response code="401">Caso não possua token de acesso</response> 
+        </member>
+        <member name="M:AlterdataVotador.Controllers.RecursoController.BuscarUm(System.Int64)">
+            <summary>
+            Obtém um recurso com base em seu ID
+            </summary>
+            <returns>Um recurso com base em seu ID</returns>
+            <param name="id"></param>
+            <response code="200">Um recurso com base em seu ID</response> 
+            <response code="400">Caso o id não seja informado</response> 
+            <response code="401">Caso não possua token de acesso</response> 
+        </member>
+        <member name="M:AlterdataVotador.Controllers.RecursoController.RankingDescrescente">
+            <summary>
+            Obtém um lista de recursos ordenada pelo numero de votos recebidos
+            </summary>
+            <returns>Uma lista de recursos em ordem decrescente pelos votos</returns> 
+            <response code="401">Caso não possua token de acesso</response> 
+        </member>
+        <member name="M:AlterdataVotador.Controllers.RecursoController.Atualizar(System.Int64,AlterdataVotador.Models.Recurso)">
+            <summary>
+            Edita um recurso com base em seu ID
+            </summary>
+            <returns></returns>
+            <param name="recurso"></param>
+            <param name="id"></param>
+            <response code="200">O Recurso editado</response> 
+            <response code="400">Caso o id ou recurso não sejam informados</response> 
+            <response code="401">Caso não possua token de acesso</response> 
+        </member>
+        <member name="M:AlterdataVotador.Controllers.RecursoController.ExcluirUm(System.Int64)">
+            <summary>
+            Deleta um recurso com base em seu ID
+            </summary>
+            <returns></returns>
+            <param name="id"></param>
+            <response code="200">Mensagem: "Recurso excluído com sucesso!"</response> 
+            <response code="400">Caso o id não seja informado</response> 
+            <response code="401">Caso não possua token de acesso</response> 
+            <response code="404">Caso não exista recurso com ID informado</response> 
+        </member>
+        <member name="M:AlterdataVotador.Controllers.UsuarioController.Authenticate(AlterdataVotador.Models.Usuario)">
+             <summary>
+             Solicita um token de acesso.
+             </summary>
+             <remarks>
+             Exemplo de request aceito:
+            
+                 POST /api/token
+                 {
+                    "email": "emailCadastrado@email.com",
+                    "senha": senhaCadastrada no sistema
+                 }
+            
+             </remarks>
+             <param>login</param>
+             <returns>token de acesso a ser armazenado localmente para futuras requisiçoes</returns>
+             <response code="201">token de acesso</response>
+             <response code="400">caso o item seja nulo</response> 
+             <response code="401">caso usuario ou senha estejam incorretos</response> 
+        </member>
+        <member name="M:AlterdataVotador.Controllers.UsuarioController.Salvar(AlterdataVotador.Models.Usuario)">
+            <summary>
+            Insere um novo usuario no banco de dados
+            </summary>
+            <param>usuário</param>
+            <returns>O usuario informado com id</returns>
+            <response code="200">O usuario informado com id</response>
+            <response code="400">Caso algum campo esteja vazio</response> 
+            <response code="401">Caso não possua token de acesso</response> 
+        </member>
+        <member name="M:AlterdataVotador.Controllers.UsuarioController.BuscarTodos">
+            <summary>
+            Obtém uma lista de todos os usuários
+            </summary>
+            <returns>Uma lista com todos os usuários cadastrados</returns>
+            <response cod="200">Uma lista com todos os usuários cadastrados</response>
+            <response code="400">Caso algum campo esteja vazio</response> 
+            <response code="401">Caso não possua token de acesso</response> 
+        </member>
+        <member name="M:AlterdataVotador.Controllers.UsuarioController.BuscarUm(System.Int64)">
+            <summary>
+            Obtém um usuário com base em seu ID
+            </summary>
+            <returns>Um usuário com base em seu ID</returns>
+            <param name="id"></param>
+            <response code="200">Um usuário com base em seu ID</response> 
+            <response code="400">Caso o id não seja informado</response> 
+            <response code="401">Caso não possua token de acesso</response> 
+        </member>
+        <member name="M:AlterdataVotador.Controllers.UsuarioController.Atualizar(System.Int64,AlterdataVotador.Models.Usuario)">
+            <summary>
+            Edita um usuário com base em seu ID
+            </summary>
+            <returns></returns>
+            <param name="usuario"></param>
+            <param name="id"></param>
+            <response code="200">O Usuário editado</response> 
+            <response code="400">Caso o id ou usuário não sejam informados</response> 
+            <response code="401">Caso não possua token de acesso</response> 
+        </member>
+        <member name="M:AlterdataVotador.Controllers.UsuarioController.ExcluirUm(System.Int64)">
+            <summary>
+            Deleta um usuário com base em seu ID
+            </summary>
+            <returns></returns>
+            <param name="id"></param>
+            <response code="200">Mensagem: "Usuário excluído com sucesso!"</response> 
+            <response code="400">Caso o id não seja informado</response> 
+            <response code="401">Caso não possua token de acesso</response> 
+            <response code="404">Caso não exista usuário com ID informado</response> 
+        </member>
+        <member name="M:AlterdataVotador.Controllers.VotacaoController.Salvar(AlterdataVotador.Models.Votacao)">
+            <summary>
+            Insere um novo voto no banco de dados (um usuário não pode votar duas vezes no mesmo recurso)
+            </summary>
+            <param>voto</param>
+            <returns>O voto informado com id</returns>
+            <response code="200">O voto informado com id</response>
+            <response code="400">Caso algum campo esteja vazio</response> 
+            <response code="401">Caso não possua token de acesso</response> 
+        </member>
+        <member name="M:AlterdataVotador.Controllers.VotacaoController.BuscarTodos">
+            <summary>
+            Obtém uma lista de todos os votos
+            </summary>
+            <returns>Uma lista com todos os votos cadastrados</returns>
+            <response cod="200">Uma lista com todos os votos cadastrados</response>
+            <response code="400">Caso algum campo esteja vazio</response> 
+            <response code="401">Caso não possua token de acesso</response> 
+        </member>
+        <member name="M:AlterdataVotador.Controllers.VotacaoController.BuscarUm(System.Int64)">
+            <summary>
+            Obtém um voto com base em seu ID
+            </summary>
+            <returns>Um voto com base em seu ID</returns>
+            <param name="id"></param>
+            <response code="200">Um voto com base em seu ID</response> 
+            <response code="400">Caso o id não seja informado</response> 
+            <response code="401">Caso não possua token de acesso</response> 
+        </member>
+        <member name="M:AlterdataVotador.Controllers.VotacaoController.Atualizar(System.Int64,AlterdataVotador.Models.Votacao)">
+            <summary>
+            Edita um voto com base em seu ID
+            </summary>
+            <returns></returns>
+            <param name="votacao"></param>
+            <param name="id"></param>
+            <response code="200">O Recurso editado</response> 
+            <response code="400">Caso o id ou voto não sejam informados</response> 
+            <response code="401">Caso não possua token de acesso</response> 
+        </member>
+        <member name="M:AlterdataVotador.Controllers.VotacaoController.ExcluirUm(System.Int64)">
+            <summary>
+            Deleta um voto com base em seu ID
+            </summary>
+            <returns></returns>
+            <param name="id"></param>
+            <response code="200">Mensagem: "Voto excluído com sucesso!"</response> 
+            <response code="400">Caso o id não seja informado</response> 
+            <response code="401">Caso não possua token de acesso</response> 
+            <response code="404">Caso não exista voto com ID informado</response>
+        </member>
+    </members>
+</doc>

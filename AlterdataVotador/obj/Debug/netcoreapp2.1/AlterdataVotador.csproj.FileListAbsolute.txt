@@ -27,5 +27,5 @@ E:\AlterdataVotador\silvoneymachado\AlterdataVotador\obj\Debug\netcoreapp2.1\Alt
 E:\AlterdataVotador\silvoneymachado\AlterdataVotador\obj\Debug\netcoreapp2.1\AlterdataVotador.dll
 E:\AlterdataVotador\silvoneymachado\AlterdataVotador\obj\Debug\netcoreapp2.1\AlterdataVotador.pdb
 E:\AlterdataVotador\silvoneymachado\AlterdataVotador\bin\Debug\netcoreapp2.1\AlterdataVotador.Views.dll
-E:\AlterdataVotador\silvoneymachado\AlterdataVotador\bin\Debug\netcoreapp2.1\AlterdataVotador.Views.pdb
 E:\AlterdataVotador\silvoneymachado\AlterdataVotador\obj\Debug\netcoreapp2.1\AlterdataVotador.csproj.CopyComplete
+E:\AlterdataVotador\silvoneymachado\AlterdataVotador\bin\Debug\netcoreapp2.1\AlterdataVotador.xml

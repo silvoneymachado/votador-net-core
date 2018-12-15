@@ -19,5 +19,23 @@ namespace AlterdataVotador.Models
         public string Descricao { get; set; }
         [Column("habilitado")]
         public bool Habilitado { get; set; }
+
+        public int Qtd(int quantidade)
+        {
+            return quantidade;
+        }
+
+        public string ValidaRecurso(Recurso recurso)
+        {
+
+            if (recurso.Descricao.Length <= 0 || recurso.Nome.Length <= 0)
+            {
+                return "É necessário preencher todos os campos!";
+            }
+            else
+            {
+                return "ok";
+            }
+        }
     }
 }

@@ -7,6 +7,9 @@ using AlterdataVotador.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using AlterdataVotador.Services;
+using System.Data.SqlClient;
+using System.Data;
+using Newtonsoft.Json;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -18,19 +21,27 @@ namespace AlterdataVotador.Controllers
     public class RecursoController : Controller
     {
         private readonly ApplicationDbContext _db;
-        private const string SQL_BUSCAR_RANKING = "select r.id, r.nome, r.descricao, r.habilitado, count(v.id) as qtd from votacao v join recurso r on v.idrecurso = r.id group by r.id order by qtd desc";
+        Recurso rec;
 
         public RecursoController(ApplicationDbContext db)
         {
             _db = db;
         }
 
-        // POST: api/Recurso
+        /// <summary>
+        /// Insere um novo recurso no banco de dados
+        /// </summary>
+        /// <param name="recurso"></param>
+        /// <returns>O recurso informado com id</returns>
+        /// <response code="200">O recurso informado com id</response>
+        /// <response code="400">Caso algum campo esteja vazio</response> 
+        /// <response code="401">Caso não possua token de acesso</response> 
         [HttpPost]
         public async Task<ActionResult<Recurso>> Salvar(Recurso recurso)
         {
-            var res = ValidaRecurso(recurso);
-            if(res == "ok")
+            rec = new Recurso();
+            var res = rec.ValidaRecurso(recurso);
+            if (res == "ok")
             {
                 _db.Recursos.Add(recurso);
                 await _db.SaveChangesAsync();
@@ -43,14 +54,27 @@ namespace AlterdataVotador.Controllers
 
         }
 
-        // GET: api/Recurso
+        /// <summary>
+        /// Obtém uma lista de todos os recursos
+        /// </summary>
+        /// <returns>Uma lista com todos os recursos cadastrados</returns>
+        /// <response cod="200">Uma lista com todos os recursos cadastrados</response>
+        /// <response code="400">Caso algum campo esteja vazio</response> 
+        /// <response code="401">Caso não possua token de acesso</response> 
         [HttpGet]
         public ActionResult<List<Recurso>> BuscarTodos()
         {
             return _db.Recursos.ToList();
         }
 
-        // GET: api/Recurso/5
+        /// <summary>
+        /// Obtém um recurso com base em seu ID
+        /// </summary>
+        /// <returns>Um recurso com base em seu ID</returns>
+        /// <param name="id"></param>
+        /// <response code="200">Um recurso com base em seu ID</response> 
+        /// <response code="400">Caso o id não seja informado</response> 
+        /// <response code="401">Caso não possua token de acesso</response> 
         [HttpGet("{id}")]
         public ActionResult<Recurso> BuscarUm(long id)
         {
@@ -65,14 +89,45 @@ namespace AlterdataVotador.Controllers
             }
         }
 
-        // GET: api/Recurso/Ranking
+        /// <summary>
+        /// Obtém um lista de recursos ordenada pelo numero de votos recebidos
+        /// </summary>
+        /// <returns>Uma lista de recursos em ordem decrescente pelos votos</returns> 
+        /// <response code="401">Caso não possua token de acesso</response> 
         [HttpGet("ranking/")]
-        public ActionResult<List<Recurso>> RankingDescrescente()
+        public ActionResult<List<RecursoRanking>> RankingDescrescente()
         {
-            return _db.Recursos.FromSql(SQL_BUSCAR_RANKING).ToList();
+            List<RecursoRanking> rrLst = new List<RecursoRanking> { };
+            var recursoLst = _db.Recursos.ToList();
+            var votacoes = _db.Votacoes.ToList();
+
+            foreach (Recurso r in recursoLst)
+            {
+                RecursoRanking rr = new RecursoRanking(r);
+                rr.Qtd = _db.Votacoes.Count(v => v.IdRecurso == r.Id);
+                rrLst.Add(rr);
+            };
+
+            if (rrLst.Count() > 0)
+            {
+                return rrLst.OrderByDescending(m => m.Qtd).ToList();
+            }
+            else
+            {
+                return NotFound(new { messagem = "Não há items a ser exibidos" });
+            }
+
         }
 
-        // PUT: api/Recurso/5
+        /// <summary>
+        /// Edita um recurso com base em seu ID
+        /// </summary>
+        /// <returns></returns>
+        /// <param name="recurso"></param>
+        /// <param name="id"></param>
+        /// <response code="200">O Recurso editado</response> 
+        /// <response code="400">Caso o id ou recurso não sejam informados</response> 
+        /// <response code="401">Caso não possua token de acesso</response> 
         [HttpPut("{id}")]
         public async Task<ActionResult> Atualizar(long id, Recurso recurso)
         {
@@ -82,7 +137,8 @@ namespace AlterdataVotador.Controllers
             }
             else
             {
-                var res = ValidaRecurso(recurso);
+                rec = new Recurso();
+                var res = rec.ValidaRecurso(recurso);
                 if (res == "ok")
                 {
                     _db.Entry(recurso).State = EntityState.Modified;
@@ -97,37 +153,32 @@ namespace AlterdataVotador.Controllers
             }
         }
 
-        // Delete: api/Recurso/5
+        /// <summary>
+        /// Deleta um recurso com base em seu ID
+        /// </summary>
+        /// <returns></returns>
+        /// <param name="id"></param>
+        /// <response code="200">Mensagem: "Recurso excluído com sucesso!"</response> 
+        /// <response code="400">Caso o id não seja informado</response> 
+        /// <response code="401">Caso não possua token de acesso</response> 
+        /// <response code="404">Caso não exista recurso com ID informado</response> 
         [HttpDelete("{id}")]
         public async Task<ActionResult<Recurso>> ExcluirUm(long id)
         {
             var item = await _db.Recursos.FindAsync(id);
             if (item == null)
             {
-                return NotFound(new { message = "Recurso não encontrado"});
+                return NotFound(new { message = "Recurso não encontrado" });
             }
             else
             {
                 _db.Recursos.Remove(item);
                 await _db.SaveChangesAsync();
 
-                return item;
+                return Ok(new { message = "Recurso excluído com sucesso!" });
             }
 
         }
 
-
-        private string ValidaRecurso(Recurso recurso)
-        {
-
-            if (recurso.Descricao.Length <= 0 || recurso.Nome.Length <= 0)
-            {
-                return "É necessário preencher todos os campos!";
-            }
-            else
-            {
-                return "ok";
-            }
-        }
     }
 }

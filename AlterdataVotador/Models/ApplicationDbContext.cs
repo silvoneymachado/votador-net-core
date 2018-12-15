@@ -13,5 +13,6 @@ namespace AlterdataVotador.Models
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Recurso> Recursos { get; set; }
         public DbSet<Votacao> Votacoes { get; set; }
+
     }
 }

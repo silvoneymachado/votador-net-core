@@ -30,6 +30,25 @@ namespace AlterdataVotador.Controllers
 
         }
 
+
+        /// <summary>
+        /// Solicita um token de acesso.
+        /// </summary>
+        /// <remarks>
+        /// Exemplo de request aceito:
+        ///
+        ///     POST /api/token
+        ///     {
+        ///        "email": "emailCadastrado@email.com",
+        ///        "senha": senhaCadastrada no sistema
+        ///     }
+        ///
+        /// </remarks>
+        /// <param>login</param>
+        /// <returns>token de acesso a ser armazenado localmente para futuras requisiçoes</returns>
+        /// <response code="201">token de acesso</response>
+        /// <response code="400">caso o item seja nulo</response> 
+        /// <response code="401">caso usuario ou senha estejam incorretos</response> 
         [AllowAnonymous]
         [HttpPost("token")]
         public IActionResult Authenticate([FromBody]Usuario usuario)
@@ -42,7 +61,14 @@ namespace AlterdataVotador.Controllers
             return Ok(user);
         }
 
-        // POST: api/Usuario
+        /// <summary>
+        /// Insere um novo usuario no banco de dados
+        /// </summary>
+        /// <param>usuário</param>
+        /// <returns>O usuario informado com id</returns>
+        /// <response code="200">O usuario informado com id</response>
+        /// <response code="400">Caso algum campo esteja vazio</response> 
+        /// <response code="401">Caso não possua token de acesso</response> 
         [HttpPost]
         public async Task<ActionResult<Usuario>> Salvar(Usuario usuario)
         {
@@ -61,14 +87,27 @@ namespace AlterdataVotador.Controllers
             
         }
 
-        // GET: api/Usuario
+        /// <summary>
+        /// Obtém uma lista de todos os usuários
+        /// </summary>
+        /// <returns>Uma lista com todos os usuários cadastrados</returns>
+        /// <response cod="200">Uma lista com todos os usuários cadastrados</response>
+        /// <response code="400">Caso algum campo esteja vazio</response> 
+        /// <response code="401">Caso não possua token de acesso</response> 
         [HttpGet]
         public ActionResult<List<Usuario>> BuscarTodos()
         {
             return _db.Usuarios.ToList();
         }
 
-        // GET: api/Usuario/5
+        /// <summary>
+        /// Obtém um usuário com base em seu ID
+        /// </summary>
+        /// <returns>Um usuário com base em seu ID</returns>
+        /// <param name="id"></param>
+        /// <response code="200">Um usuário com base em seu ID</response> 
+        /// <response code="400">Caso o id não seja informado</response> 
+        /// <response code="401">Caso não possua token de acesso</response> 
         [HttpGet("{id}")]
         //[Authorize(Roles = "rh")]
         public ActionResult<Usuario> BuscarUm(long id)
@@ -84,7 +123,15 @@ namespace AlterdataVotador.Controllers
             } 
         }
 
-        // PUT: api/Usuario
+        /// <summary>
+        /// Edita um usuário com base em seu ID
+        /// </summary>
+        /// <returns></returns>
+        /// <param name="usuario"></param>
+        /// <param name="id"></param>
+        /// <response code="200">O Usuário editado</response> 
+        /// <response code="400">Caso o id ou usuário não sejam informados</response> 
+        /// <response code="401">Caso não possua token de acesso</response> 
         [HttpPut("{id}")]
         public async Task<ActionResult> Atualizar(long id, Usuario usuario)
         {
@@ -97,11 +144,19 @@ namespace AlterdataVotador.Controllers
                 usuario.Senha = _usuarioService.Encrypt(usuario);
                 _db.Entry(usuario).State = EntityState.Modified;
                 await _db.SaveChangesAsync();
-                return CreatedAtAction("BuscarUm", new { id = usuario.Id }, usuario);
+                return Ok(new { message = "Usuário editado com sucesso!" });
             }
         }
 
-        // Delete: api/Usuario/5
+        /// <summary>
+        /// Deleta um usuário com base em seu ID
+        /// </summary>
+        /// <returns></returns>
+        /// <param name="id"></param>
+        /// <response code="200">Mensagem: "Usuário excluído com sucesso!"</response> 
+        /// <response code="400">Caso o id não seja informado</response> 
+        /// <response code="401">Caso não possua token de acesso</response> 
+        /// <response code="404">Caso não exista usuário com ID informado</response> 
         [HttpDelete("{id}")]
         public async Task<ActionResult<Usuario>> ExcluirUm(long id)
         {
@@ -115,7 +170,7 @@ namespace AlterdataVotador.Controllers
                 _db.Usuarios.Remove(item);
                 await _db.SaveChangesAsync();
 
-                return item;
+                return Ok(new { message = "Usuário excluído com sucesso!" });
             }
 
         }
