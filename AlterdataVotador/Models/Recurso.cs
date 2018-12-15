@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace AlterdataVotador.Models
 {
+    /// <summary>
+    /// Recurso a ser votado no sistema
+    /// </summary>
     [Table("recurso")]
     public class Recurso
     {
@@ -19,11 +22,6 @@ namespace AlterdataVotador.Models
         public string Descricao { get; set; }
         [Column("habilitado")]
         public bool Habilitado { get; set; }
-
-        public int Qtd(int quantidade)
-        {
-            return quantidade;
-        }
 
         public string ValidaRecurso(Recurso recurso)
         {

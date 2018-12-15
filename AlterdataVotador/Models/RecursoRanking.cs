@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 
 namespace AlterdataVotador.Models
 {
-    public class RecursoRanking
+    /// <summary>
+    /// Utilizada para obter quantidade de votos e exibir.
+    /// Herda de Recurso.
+    /// </summary>
+    public class RecursoRanking: Recurso
     {
-        public long Id { get; set; }
-        public string Nome { get; set; }
-        public string Descricao { get; set; }
-        public bool Habilitado { get; set; }
         public int Qtd { get; set; }
 
         public RecursoRanking(Recurso recurso)

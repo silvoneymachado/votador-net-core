@@ -7,6 +7,11 @@ using System.Threading.Tasks;
 
 namespace AlterdataVotador.Models
 {
+    /// <summary>
+    /// Usuário do sistema
+    /// Não é permitido o cadastro de dois usuários com o mesmo email.
+    /// email e senha são usados no login obtendo o token de acesso.
+    /// </summary>
     [Table("usuario")]
     public class Usuario
     {

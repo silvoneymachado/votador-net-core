@@ -31,6 +31,16 @@ namespace AlterdataVotador.Controllers
         /// <summary>
         /// Insere um novo recurso no banco de dados
         /// </summary>
+        /// <remarks>
+        /// Necessário informar o token no header: 
+        /// 
+        ///     header: 
+        ///     {
+        ///         "Authorization": "Bearer " + token,
+        ///         "Content-Type": "application/json"
+        ///     }
+        ///     
+        /// </remarks>
         /// <param name="recurso"></param>
         /// <returns>O recurso informado com id</returns>
         /// <response code="200">O recurso informado com id</response>
@@ -57,6 +67,16 @@ namespace AlterdataVotador.Controllers
         /// <summary>
         /// Obtém uma lista de todos os recursos
         /// </summary>
+        /// <remarks>
+        /// Necessário informar o token no header: 
+        /// 
+        ///     header: 
+        ///     {
+        ///         "Authorization": "Bearer " + token,
+        ///         "Content-Type": "application/json"
+        ///     }
+        ///     
+        /// </remarks>
         /// <returns>Uma lista com todos os recursos cadastrados</returns>
         /// <response cod="200">Uma lista com todos os recursos cadastrados</response>
         /// <response code="400">Caso algum campo esteja vazio</response> 
@@ -70,6 +90,16 @@ namespace AlterdataVotador.Controllers
         /// <summary>
         /// Obtém um recurso com base em seu ID
         /// </summary>
+        /// <remarks>
+        /// Necessário informar o token no header: 
+        /// 
+        ///     header: 
+        ///     {
+        ///         "Authorization": "Bearer " + token,
+        ///         "Content-Type": "application/json"
+        ///     }
+        ///     
+        /// </remarks>
         /// <returns>Um recurso com base em seu ID</returns>
         /// <param name="id"></param>
         /// <response code="200">Um recurso com base em seu ID</response> 
@@ -92,6 +122,16 @@ namespace AlterdataVotador.Controllers
         /// <summary>
         /// Obtém um lista de recursos ordenada pelo numero de votos recebidos
         /// </summary>
+        /// <remarks>
+        /// Necessário informar o token no header: 
+        /// 
+        ///     header: 
+        ///     {
+        ///         "Authorization": "Bearer " + token,
+        ///         "Content-Type": "application/json"
+        ///     }
+        ///     
+        /// </remarks>
         /// <returns>Uma lista de recursos em ordem decrescente pelos votos</returns> 
         /// <response code="401">Caso não possua token de acesso</response> 
         [HttpGet("ranking/")]
@@ -122,6 +162,16 @@ namespace AlterdataVotador.Controllers
         /// <summary>
         /// Edita um recurso com base em seu ID
         /// </summary>
+        /// <remarks>
+        /// Necessário informar o token no header: 
+        /// 
+        ///     header: 
+        ///     {
+        ///         "Authorization": "Bearer " + token,
+        ///         "Content-Type": "application/json"
+        ///     }
+        ///     
+        /// </remarks>
         /// <returns></returns>
         /// <param name="recurso"></param>
         /// <param name="id"></param>
@@ -156,6 +206,16 @@ namespace AlterdataVotador.Controllers
         /// <summary>
         /// Deleta um recurso com base em seu ID
         /// </summary>
+        /// <remarks>
+        /// Necessário informar o token no header: 
+        /// 
+        ///     header: 
+        ///     {
+        ///         "Authorization": "Bearer " + token,
+        ///         "Content-Type": "application/json"
+        ///     }
+        ///     
+        /// </remarks>
         /// <returns></returns>
         /// <param name="id"></param>
         /// <response code="200">Mensagem: "Recurso excluído com sucesso!"</response> 

@@ -8,6 +8,10 @@ using System.Threading.Tasks;
 
 namespace AlterdataVotador.Models
 {
+    /// <summary>
+    /// Voto, permite apenas um unico voto entre usuario + recurso
+    /// O Cometário é obrigatório
+    /// </summary>
     [Table("votacao")]
     public class Votacao
     {

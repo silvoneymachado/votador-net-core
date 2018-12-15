@@ -44,7 +44,7 @@ namespace AlterdataVotador.Controllers
         ///     }
         ///
         /// </remarks>
-        /// <param>login</param>
+        /// <param name="usuario"></param>
         /// <returns>token de acesso a ser armazenado localmente para futuras requisiçoes</returns>
         /// <response code="201">token de acesso</response>
         /// <response code="400">caso o item seja nulo</response> 
@@ -64,7 +64,17 @@ namespace AlterdataVotador.Controllers
         /// <summary>
         /// Insere um novo usuario no banco de dados
         /// </summary>
-        /// <param>usuário</param>
+        /// <remarks>
+        /// Necessário informar o token no header: 
+        /// 
+        ///     header: 
+        ///     {
+        ///         "Authorization": "Bearer " + token,
+        ///         "Content-Type": "application/json"
+        ///     }
+        ///     
+        /// </remarks>
+        /// <param name="usuario"></param>
         /// <returns>O usuario informado com id</returns>
         /// <response code="200">O usuario informado com id</response>
         /// <response code="400">Caso algum campo esteja vazio</response> 
@@ -90,6 +100,16 @@ namespace AlterdataVotador.Controllers
         /// <summary>
         /// Obtém uma lista de todos os usuários
         /// </summary>
+        /// <remarks>
+        /// Necessário informar o token no header: 
+        /// 
+        ///     header: 
+        ///     {
+        ///         "Authorization": "Bearer " + token,
+        ///         "Content-Type": "application/json"
+        ///     }
+        ///     
+        /// </remarks>
         /// <returns>Uma lista com todos os usuários cadastrados</returns>
         /// <response cod="200">Uma lista com todos os usuários cadastrados</response>
         /// <response code="400">Caso algum campo esteja vazio</response> 
@@ -103,6 +123,16 @@ namespace AlterdataVotador.Controllers
         /// <summary>
         /// Obtém um usuário com base em seu ID
         /// </summary>
+        /// <remarks>
+        /// Necessário informar o token no header: 
+        /// 
+        ///     header: 
+        ///     {
+        ///         "Authorization": "Bearer " + token,
+        ///         "Content-Type": "application/json"
+        ///     }
+        ///     
+        /// </remarks>
         /// <returns>Um usuário com base em seu ID</returns>
         /// <param name="id"></param>
         /// <response code="200">Um usuário com base em seu ID</response> 
@@ -126,6 +156,16 @@ namespace AlterdataVotador.Controllers
         /// <summary>
         /// Edita um usuário com base em seu ID
         /// </summary>
+        /// <remarks>
+        /// Necessário informar o token no header: 
+        /// 
+        ///     header: 
+        ///     {
+        ///         "Authorization": "Bearer " + token,
+        ///         "Content-Type": "application/json"
+        ///     }
+        ///     
+        /// </remarks>
         /// <returns></returns>
         /// <param name="usuario"></param>
         /// <param name="id"></param>
@@ -151,6 +191,16 @@ namespace AlterdataVotador.Controllers
         /// <summary>
         /// Deleta um usuário com base em seu ID
         /// </summary>
+        /// <remarks>
+        /// Necessário informar o token no header: 
+        /// 
+        ///     header: 
+        ///     {
+        ///         "Authorization": "Bearer " + token,
+        ///         "Content-Type": "application/json"
+        ///     }
+        ///     
+        /// </remarks>
         /// <returns></returns>
         /// <param name="id"></param>
         /// <response code="200">Mensagem: "Usuário excluído com sucesso!"</response> 
