@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlterdataVotador", "AlterdataVotador\AlterdataVotador.csproj", "{DA320D60-0901-44BA-A450-A90AC0D8B4A8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlterdataVotador", "AlterdataVotador\AlterdataVotador.csproj", "{DA320D60-0901-44BA-A450-A90AC0D8B4A8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NUnitAlterdataVotador.Tests", "AlterdataVotador.Tests\NUnitAlterdataVotador.Tests.csproj", "{2709C9BF-99DD-4250-9241-A1593D99048D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{DA320D60-0901-44BA-A450-A90AC0D8B4A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA320D60-0901-44BA-A450-A90AC0D8B4A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA320D60-0901-44BA-A450-A90AC0D8B4A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2709C9BF-99DD-4250-9241-A1593D99048D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2709C9BF-99DD-4250-9241-A1593D99048D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2709C9BF-99DD-4250-9241-A1593D99048D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2709C9BF-99DD-4250-9241-A1593D99048D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

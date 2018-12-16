@@ -12,11 +12,16 @@ E:\AlterdataVotador\project\AlterdataVotador\AlterdataVotador\obj\Debug\netcorea
 E:\AlterdataVotador\project\AlterdataVotador\AlterdataVotador\bin\Debug\netcoreapp2.1\AlterdataVotador.pdb
 E:\AlterdataVotador\project\AlterdataVotador\AlterdataVotador\obj\Debug\netcoreapp2.1\AlterdataVotador.dll
 E:\AlterdataVotador\project\AlterdataVotador\AlterdataVotador\obj\Debug\netcoreapp2.1\AlterdataVotador.pdb
+E:\AlterdataVotador\silvoneymachado\AlterdataVotador\bin\Debug\netcoreapp2.1\NUnit3.TestAdapter.dll
+E:\AlterdataVotador\silvoneymachado\AlterdataVotador\bin\Debug\netcoreapp2.1\NUnit3.TestAdapter.pdb
+E:\AlterdataVotador\silvoneymachado\AlterdataVotador\bin\Debug\netcoreapp2.1\nunit.engine.netstandard.dll
 E:\AlterdataVotador\silvoneymachado\AlterdataVotador\bin\Debug\netcoreapp2.1\AlterdataVotador.deps.json
 E:\AlterdataVotador\silvoneymachado\AlterdataVotador\bin\Debug\netcoreapp2.1\AlterdataVotador.runtimeconfig.json
 E:\AlterdataVotador\silvoneymachado\AlterdataVotador\bin\Debug\netcoreapp2.1\AlterdataVotador.runtimeconfig.dev.json
 E:\AlterdataVotador\silvoneymachado\AlterdataVotador\bin\Debug\netcoreapp2.1\AlterdataVotador.dll
 E:\AlterdataVotador\silvoneymachado\AlterdataVotador\bin\Debug\netcoreapp2.1\AlterdataVotador.pdb
+E:\AlterdataVotador\silvoneymachado\AlterdataVotador\bin\Debug\netcoreapp2.1\AlterdataVotador.xml
+E:\AlterdataVotador\silvoneymachado\AlterdataVotador\bin\Debug\netcoreapp2.1\AlterdataVotador.Views.dll
 E:\AlterdataVotador\silvoneymachado\AlterdataVotador\obj\Debug\netcoreapp2.1\AlterdataVotador.csprojAssemblyReference.cache
 E:\AlterdataVotador\silvoneymachado\AlterdataVotador\obj\Debug\netcoreapp2.1\AlterdataVotador.csproj.CoreCompileInputs.cache
 E:\AlterdataVotador\silvoneymachado\AlterdataVotador\obj\Debug\netcoreapp2.1\AlterdataVotador.RazorAssemblyInfo.cache
@@ -26,6 +31,4 @@ E:\AlterdataVotador\silvoneymachado\AlterdataVotador\obj\Debug\netcoreapp2.1\Alt
 E:\AlterdataVotador\silvoneymachado\AlterdataVotador\obj\Debug\netcoreapp2.1\AlterdataVotador.RazorTargetAssemblyInfo.cache
 E:\AlterdataVotador\silvoneymachado\AlterdataVotador\obj\Debug\netcoreapp2.1\AlterdataVotador.dll
 E:\AlterdataVotador\silvoneymachado\AlterdataVotador\obj\Debug\netcoreapp2.1\AlterdataVotador.pdb
-E:\AlterdataVotador\silvoneymachado\AlterdataVotador\bin\Debug\netcoreapp2.1\AlterdataVotador.Views.dll
 E:\AlterdataVotador\silvoneymachado\AlterdataVotador\obj\Debug\netcoreapp2.1\AlterdataVotador.csproj.CopyComplete
-E:\AlterdataVotador\silvoneymachado\AlterdataVotador\bin\Debug\netcoreapp2.1\AlterdataVotador.xml

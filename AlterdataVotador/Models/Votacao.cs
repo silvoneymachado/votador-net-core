@@ -41,18 +41,23 @@ namespace AlterdataVotador.Models
             var item = await _db.Votacoes.SingleOrDefaultAsync(v => v.IdRecurso == voto.IdRecurso && v.IdUsuario == voto.IdUsuario);
             if (item == null)
             {
-                if (voto.Comentario.Length > 0)
-                {
-                    return "ok";
-                }
-                else
-                {
-                    return "É necessário preencher o campo de comentário!";
-                }
+                return ValidaComentario(voto.Comentario);
             }
             else
             {
                 return "Não é possível votar mais de uma vez em um recurso";
+            }
+        }
+
+        public string ValidaComentario(string comentario)
+        {
+            if (comentario.Length > 0)
+            {
+                return "ok";
+            }
+            else
+            {
+                return "É necessário preencher o campo de comentário!";
             }
         }
     }

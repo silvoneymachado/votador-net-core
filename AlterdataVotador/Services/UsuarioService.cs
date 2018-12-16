@@ -21,8 +21,6 @@ namespace AlterdataVotador.Services
     {
         Usuario Authenticate(string nome, string senha);
         IEnumerable<Usuario> BuscarTodos();
-        string Encrypt(Usuario usuario);
-        string ValidaEmail(string email);
     }
 
     public class UsuarioService : IUsuarioService
@@ -70,18 +68,6 @@ namespace AlterdataVotador.Services
             return user;
         }
 
-        public string Encrypt(Usuario usuario)
-        {
-            // SHA512 is disposable by inheritance.  
-            using (var sha256 = SHA256.Create())
-            {
-                // Send a sample text to hash.  
-                var hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(usuario.Email + usuario.Senha));
-                // Get the hashed string.  
-                return BitConverter.ToString(hashedBytes).Replace("-", "").ToLower();
-            }
-        }
-
         public IEnumerable<Usuario> BuscarTodos()
         {
             // return users without passwords
@@ -91,27 +77,5 @@ namespace AlterdataVotador.Services
             });
         }
 
-        public string ValidaEmail(string email)
-        {
-            _users = _db.Usuarios.ToList();
-            var user = _users.SingleOrDefault(x => x.Email == email);
-            if (user == null)
-            {
-                try
-                {
-                    MailAddress m = new MailAddress(email);
-
-                    return email;
-                }
-                catch (FormatException)
-                {
-                    return "Formado de email inválido";
-                }
-            }
-            else
-            {
-                return "O email informado já está em uso";
-            }
-        }
     }
 }

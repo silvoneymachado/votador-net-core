@@ -143,8 +143,10 @@ namespace AlterdataVotador.Controllers
 
             foreach (Recurso r in recursoLst)
             {
-                RecursoRanking rr = new RecursoRanking(r);
-                rr.Qtd = _db.Votacoes.Count(v => v.IdRecurso == r.Id);
+                RecursoRanking rr = new RecursoRanking(r)
+                {
+                    Qtd = _db.Votacoes.Count(v => v.IdRecurso == r.Id)
+                };
                 rrLst.Add(rr);
             };
 

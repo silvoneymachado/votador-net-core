@@ -22,12 +22,12 @@ namespace AlterdataVotador.Controllers
         private readonly ApplicationDbContext _db;
         private readonly IUsuarioService _usuarioService;
         private HttpRequestMessage req;
+        private Usuario usr;
 
         public UsuarioController(ApplicationDbContext db, IUsuarioService usuarioService)
         {
             _db = db;
             _usuarioService = usuarioService;
-
         }
 
 
@@ -53,7 +53,8 @@ namespace AlterdataVotador.Controllers
         [HttpPost("token")]
         public IActionResult Authenticate([FromBody]Usuario usuario)
         {
-            usuario.Senha = _usuarioService.Encrypt(usuario);
+            usr = new Usuario(_db);
+            usuario.Senha = usr.Encrypt(usuario);
             var user = _usuarioService.Authenticate(usuario.Email, usuario.Senha);
             if (user == null)
                 return BadRequest(new { message = "Usuario ou senha estão incorretos." });
@@ -82,10 +83,11 @@ namespace AlterdataVotador.Controllers
         [HttpPost]
         public async Task<ActionResult<Usuario>> Salvar(Usuario usuario)
         {
-            var res = _usuarioService.ValidaEmail(usuario.Email);
+            usr = new Usuario(_db);
+            var res = usr.ValidaEmail(usuario.Email);
             if(res == usuario.Email)
             {
-                usuario.Senha = _usuarioService.Encrypt(usuario);
+                usuario.Senha = usr.Encrypt(usuario);
                 _db.Usuarios.Add(usuario);
                 await _db.SaveChangesAsync();
                 return CreatedAtAction("BuscarUm", new { id = usuario.Id }, usuario);
@@ -117,7 +119,13 @@ namespace AlterdataVotador.Controllers
         [HttpGet]
         public ActionResult<List<Usuario>> BuscarTodos()
         {
-            return _db.Usuarios.ToList();
+            List <Usuario> usrLst = _db.Usuarios.ToList();
+            foreach(Usuario usr in usrLst)
+            {
+                usr.Senha = null;
+            }
+
+            return usrLst;
         }
 
         /// <summary>
@@ -149,6 +157,7 @@ namespace AlterdataVotador.Controllers
             }
             else
             {
+                item.Senha = null;
                 return item;
             } 
         }
@@ -181,7 +190,8 @@ namespace AlterdataVotador.Controllers
             }
             else
             {
-                usuario.Senha = _usuarioService.Encrypt(usuario);
+                usr = new Usuario(_db);
+                usuario.Senha = usr.Encrypt(usuario);
                 _db.Entry(usuario).State = EntityState.Modified;
                 await _db.SaveChangesAsync();
                 return Ok(new { message = "Usuário editado com sucesso!" });
