@@ -33,12 +33,11 @@ namespace AlterdataVotador
         {
             services.AddEntityFrameworkNpgsql()
              .AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             // configure DI for application services
             services.AddTransient<IUsuarioService, UsuarioService>();
 
-            //services.AddCors();
+            services.AddCors();
 
             // configure strongly typed settings objects
             var appSettingsSection = Configuration.GetSection("AppSettings");
@@ -77,7 +76,8 @@ namespace AlterdataVotador
                 },
               };
 
-          });
+
+            });
 
 
             // Register the Swagger generator, defining 1 or more Swagger documents
@@ -106,6 +106,8 @@ namespace AlterdataVotador
                 c.IncludeXmlComments(xmlPath);
             });
 
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -115,7 +117,7 @@ namespace AlterdataVotador
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            
             app.UseAuthentication();
 
             // Enable middleware to serve generated Swagger as a JSON endpoint.
@@ -127,17 +129,14 @@ namespace AlterdataVotador
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Votador API V1");
             });
 
-            app.UseMvc();
-
-
-
-
             // global cors policy
-            //app.UseCors(x => x
-            //    .AllowAnyOrigin()
-            //    .AllowAnyMethod()
-            //    .AllowAnyHeader()
-            //    .AllowCredentials());
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials());
+
+            app.UseMvc();
         }
     }
 }

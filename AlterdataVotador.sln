@@ -7,6 +7,27 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlterdataVotador", "Alterda
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NUnitAlterdataVotador.Tests", "AlterdataVotador.Tests\NUnitAlterdataVotador.Tests.csproj", "{2709C9BF-99DD-4250-9241-A1593D99048D}"
 EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "app", "AlterdataVotadorWebSimple\app\", "{AA51D7FE-810C-4E37-880C-85853B89872D}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_64020"
+		Debug.AspNetCompiler.PhysicalPath = "AlterdataVotadorWebSimple\app\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_64020\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_64020"
+		Release.AspNetCompiler.PhysicalPath = "AlterdataVotadorWebSimple\app\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_64020\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "64020"
+		SlnRelativePath = "AlterdataVotadorWebSimple\app\"
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,12 +36,16 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{DA320D60-0901-44BA-A450-A90AC0D8B4A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DA320D60-0901-44BA-A450-A90AC0D8B4A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DA320D60-0901-44BA-A450-A90AC0D8B4A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DA320D60-0901-44BA-A450-A90AC0D8B4A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA320D60-0901-44BA-A450-A90AC0D8B4A8}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA320D60-0901-44BA-A450-A90AC0D8B4A8}.Release|Any CPU.Build.0 = Debug|Any CPU
 		{2709C9BF-99DD-4250-9241-A1593D99048D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2709C9BF-99DD-4250-9241-A1593D99048D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2709C9BF-99DD-4250-9241-A1593D99048D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2709C9BF-99DD-4250-9241-A1593D99048D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA51D7FE-810C-4E37-880C-85853B89872D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA51D7FE-810C-4E37-880C-85853B89872D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA51D7FE-810C-4E37-880C-85853B89872D}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA51D7FE-810C-4E37-880C-85853B89872D}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
